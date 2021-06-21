@@ -60,7 +60,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   dev.args = list(bg = "transparent"),
   message = FALSE,
-  cache = TRUE,
+  cache = FALSE,
   cache.path = "cache/",
   NULL
 )
@@ -135,7 +135,9 @@ staff_photos <- dat %>%
   # X = first letter of their first name
   # Y = first letter of their last name
   # remove those
-  str_subset("/[:alpha:][:alpha:].jpg$", negate = TRUE)
+  str_subset("/[:alpha:][:alpha:].jpg$", negate = TRUE) 
+
+staff_photos[str_detect(staff_photos, "Gael-Martin")] <- "images/gael-martin.jpg"
 
 staffs <- dat %>% 
   map_dfr(~{
