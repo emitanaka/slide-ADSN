@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Department of Econometrics and Business Statistics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emi Tanaka" />
+    <script src="lib/header-attrs-2.8/header-attrs.js"></script>
+    <link href="lib/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    
+    <!--
+    <script defer src="assets/all.min.js"></script>
+
+    Need below to enable css contents
+
+    <script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+
+    -->
+    <link rel="stylesheet" href="assets/font-awesome-all.css" type="text/css" />
+    <link rel="stylesheet" href="assets/tachyons-addon.css" type="text/css" />
+    <link rel="stylesheet" href="assets/animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets/fira-code.css" type="text/css" />
+    <link rel="stylesheet" href="assets/boxes.css" type="text/css" />
+    <link rel="stylesheet" href="assets/table.css" type="text/css" />
+    <link rel="stylesheet" href="assets/styles.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-brand.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/slide-types.css" type="text/css" />
+    <link rel="stylesheet" href="assets/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: middle center hide-slide-number monash-bg-gray80
+
+
+
+
+
+.info-box.w-50.bg-white[
+These slides are viewed best by Chrome or Firefox and occasionally need to be refreshed if elements did not load properly. Please note this web version takes a while to load. See &lt;a href="index.pdf"&gt;here for the PDF &lt;i class="fas fa-file-pdf"&gt;&lt;/i&gt;&lt;/a&gt;. 
+]
+
+&lt;br&gt;
+
+.white[Press the **right arrow** to progress to the next slide!]
+
+
+
+---
+
+
+background-size: cover
+class: title-slide
+count: false
+
+# .f-4.monash-blue[Department of Econometrics and Business Statistics]
+
+&lt;h2 style="font-weight:900!important;"&gt;&lt;/h2&gt;
+
+.bottom_abs.width100[
+
+Presenter: *Emi Tanaka*
+
+
+&lt;i class="fas fa-envelope"&gt;&lt;/i&gt;  emi.tanaka@monash.edu &lt;a href="https://twitter.com/statsgen" style="color:black"&gt;&lt;i class="fab fa-twitter"&gt;&lt;/i&gt; @statsgen&lt;/a&gt;
+
+
+&lt;i class="fas fa-calendar-alt"&gt;&lt;/i&gt; 25 June 2021 @ Australia Data Science Network
+
+&lt;br&gt;
+
+]
+
+
+---
+
+
+&lt;img src="images/monash-stacked-blue-rgb-transparent.png" width="200px"&gt;
+# Department of Econometrics and Business Statistics
+
+
+
+&lt;img src=https://www.monash.edu/__data/assets/image/0010/1695250/Rob-Hyndman.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0007/1475593/George-Athanasopoulos.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0005/1475582/Brett-Inder.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0005/1475600/Natalia-Bailey.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0010/1475596/Jiti-Gao.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0006/1475592/Gael-Martin.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1475588/Dianne-Cook.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/2563384/Dan-Simpson.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0008/1475594/Heather-Anderson.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0007/1475602/Robert-Brooks.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1496747/duangkamon-chotikapanich.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1475579/Athanasios-Pantelous.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0005/1475591/Farshid-Vahid.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/1475608/Xueyan-Zhao.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1477469/Max-King.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1496774/keith-mclaren.JPG width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/1496794/Alan-Powell.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0006/1475583/Catherine-Forbes.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0010/1475587/David-Frazier.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/1475581/Bonsoo-Koo.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0010/1475578/Ann-Maharaj.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1475606/Xibin-Zhang.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0008/1496798/Ralph-Snyder.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/1475590/Don-Galagedera.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0008/1475585/Daniel-Melser.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0003/2250579/Bin-Peng.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0010/1997236/Gerrie-Roberts.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0003/1475580/Benjamin-Wong.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0009/1475586/Dan-Zhu.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/1475599/Klaus-Ackermann.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0007/1496797/Janjala-Chirakijja.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0003/2169336/Hamza-Hanbali.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0007/1475584/Charanjit-Kaur.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/2250578/Lauren-Kennedy.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0009/1496799/Ruben-Loaiza-Maya.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/1866485/Patricia_Menendez.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0012/1475589/Didier-Nibbering.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0003/2073306/emi-tanaka.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0005/1496795/Denni-Tommasi.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0010/1475605/Wei-Wei.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0005/1997240/Julie-Cook.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0007/2169961/Puwasala-Gamakumara.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0004/2505910/stuart-lee.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0005/2514686/zhuo-l.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0007/2552785/luis-torres.jpg width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0011/2171792/Guido-Turnip.JPG width='7.5%'&gt;
+&lt;img src=https://www.monash.edu/__data/assets/image/0006/2297085/yang-yang.jpg width='7.5%'&gt;
+
+We have about 50 faculty staffs that work on **econometrics**, **business analytics** and **actuarial science** for research and teaching.
+
+
+
+---
+
+# Key interest areas
+
+
+&lt;img src="images/keywordcloud-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+---
+
+# World Leading Econometrics and Forecasting Unit
+
+Selected projects involving our department staffs
+
+.flex[
+.box[
+.box-up[
+&lt;img src="https://www.monash.edu/__data/assets/image/0004/2207461/COVID.jpg" width="100%"&gt;
+]
+.box-bottom[
+COVID-19
+]]
+.box[
+.box-up[
+&lt;img src="https://www.monash.edu/__data/assets/image/0011/1589321/lightbulb.jpg" width="100%"&gt;
+]
+.box-bottom[
+Energy demand
+]
+]
+.box[
+.box-up[
+&lt;img src="https://www.monash.edu/__data/assets/image/0009/1589319/holding-ipad.jpg" width="100%"&gt;
+]
+.box-bottom[
+Tourism
+]
+]]
+
+---
+
+# Software Development
+
+Selected R-packages developed by our department staffs and students
+
+
+&lt;img src='images/logo-ts01-forecast.png' width='120px'&gt;
+&lt;img src='images/logo-ts02-fable.png' width='120px'&gt;
+&lt;img src='images/logo-ts03-feasts.png' width='120px'&gt;
+&lt;img src='images/logo-ts04-tsibble.png' width='120px'&gt;
+&lt;img src='images/logo-ts05-fasster.png' width='120px'&gt;
+&lt;img src='images/logo-ts05a-hts.png' width='120px'&gt;
+&lt;img src='images/logo-ts06-thief.png' width='120px'&gt;
+&lt;img src='images/logo-ts07-seer.png' width='120px'&gt;
+&lt;img src='images/logo-ts08-gravitas.png' width='120px'&gt;
+&lt;img src='images/logo-ed01-edibble.png' width='120px'&gt;
+&lt;img src='images/logo-ed02-deggust.png' width='120px'&gt;
+&lt;img src='images/logo-bio01-plyranages.png' width='120px'&gt;
+&lt;img src='images/logo-other-lookout.png' width='120px'&gt;
+&lt;img src='images/logo-other-oddstream.png' width='120px'&gt;
+&lt;img src='images/logo-other-oddwater.png' width='120px'&gt;
+&lt;img src='images/logo-other-spinifex.png' width='120px'&gt;
+&lt;img src='images/logo-other-sugarbag.png' width='120px'&gt;
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="lib/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "magula",
+"highlightLanguage": "r",
+"highlightLines": true,
+"highlightSpans": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%",
+"navigation": {
+"scroll": false,
+"touch": true,
+"click": false
+},
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'lib/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

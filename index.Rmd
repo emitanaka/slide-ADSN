@@ -1,0 +1,293 @@
+---
+title: "Department of Econometrics and Business Statistics"
+author: "Emi Tanaka"
+email: "emi.tanaka@monash.edu"
+date: "25 June 2021 @ Australia Data Science Network"
+length: "10 minutes"
+department: "Department of Econometrics and Business Statistics"
+output:
+  xaringan::moon_reader:
+    css:
+      - ninjutsu 
+      - "assets/font-awesome-all.css"
+      - "assets/tachyons-addon.css"
+      - "assets/animate.css"
+      - "assets/fira-code.css"
+      - "assets/boxes.css"
+      - "assets/table.css"
+      - "assets/styles.css"
+      - "assets/monash-brand.css"
+      - "assets/monash-fonts.css"
+      - "assets/slide-types.css"
+      - "assets/custom.css"
+    self_contained: false 
+    seal: false 
+    chakra: 'lib/remark-latest.min.js'
+    includes:
+      in_header: "assets/head.html"
+    lib_dir: lib
+    #includes:
+    #  in_header: "assets/custom.html"
+    mathjax: "lib/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    nature:
+      highlightStyle: magula
+      highlightLanguage: r 
+      highlightLines: true
+      highlightSpans: false 
+      countIncrementalSlides: false
+      slideNumberFormat: '%current%/%total%'
+      navigation:
+        scroll: false 
+        touch: true
+        click: false
+      ratio: '16:9'
+---
+
+
+```{r, include = FALSE}
+printdf <- function(x) kableExtra::kable_classic(knitr::kable(x))
+current_file <- knitr::current_input()
+basename <- gsub(".Rmd$", "", current_file)
+options(tibble.width = Inf,
+        tibble.print_max = Inf)
+knitr::opts_chunk$set(
+  fig.path = "images/",
+  fig.width = 6,
+  fig.height = 4,
+  fig.align = "center",
+  fig.retina = 3,
+  echo = TRUE,
+  warning = FALSE,
+  dev.args = list(bg = "transparent"),
+  message = FALSE,
+  cache = TRUE,
+  cache.path = "cache/",
+  NULL
+)
+```
+
+
+
+class: middle center hide-slide-number monash-bg-gray80
+
+
+```{r, include = FALSE}
+basename <- ifelse(exists("basename"), basename, "slide")
+pdflink <- ifelse(is.null(rmarkdown::metadata$pdflink),
+                  paste0(basename, ".pdf"),
+                  rmarkdown::metadata$pdflink)
+```
+
+
+.info-box.w-50.bg-white[
+These slides are viewed best by Chrome or Firefox and occasionally need to be refreshed if elements did not load properly. Please note this web version takes a while to load. See <a href="`r pdflink`">here for the PDF <i class="fas fa-file-pdf"></i></a>. 
+]
+
+<br>
+
+.white[Press the **right arrow** to progress to the next slide!]
+
+
+
+---
+
+
+background-size: cover
+class: title-slide
+count: false
+
+# .f-4.monash-blue[`r rmarkdown::metadata$title`]
+
+<h2 style="font-weight:900!important;">`r rmarkdown::metadata$subtitle`</h2>
+
+.bottom_abs.width100[
+
+Presenter: *`r rmarkdown::metadata$author`*
+
+
+<i class="fas fa-envelope"></i>  `r rmarkdown::metadata$email` <a href="https://twitter.com/statsgen" style="color:black"><i class="fab fa-twitter"></i> @statsgen</a>
+
+
+<i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`
+
+<br>
+
+]
+
+
+---
+
+
+<img src="images/monash-stacked-blue-rgb-transparent.png" width="200px">
+# Department of Econometrics and Business Statistics
+
+
+```{r staff-list, echo = FALSE}
+library(tidyverse)
+library(rvest)
+library(glue)
+dat <- read_html("https://www.monash.edu/business/ebs/our-people/staff-directory") %>% 
+  html_elements('[class="row"]') 
+
+staff_photos <- dat %>% 
+  html_elements(".col-sm-4-img") %>% 
+  html_elements("img") %>% 
+  html_attr("src") %>% 
+  # some don't have photos
+  # these have a pattern with file name XY.jpg where
+  # X = first letter of their first name
+  # Y = first letter of their last name
+  # remove those
+  str_subset("/[:alpha:][:alpha:].jpg$", negate = TRUE)
+
+staffs <- dat %>% 
+  map_dfr(~{
+    name <- .x %>% 
+      html_element(".staff-content") %>% 
+      # two staff content for some reason!
+      html_element(".staff-content") %>% 
+      html_element("p") %>% 
+      html_element("strong") %>% 
+      html_text() %>% 
+      str_replace_all("\\r\\n", "") %>% 
+      str_squish()
+    position <- .x %>% 
+      html_element(".staff-content") %>% 
+      # two staff content for some reason!
+      html_element(".staff-content") %>% 
+      html_element("p") %>% 
+      html_element("em") %>% 
+      html_text()
+    location <- .x %>% 
+      html_element(".staff-content") %>% 
+      # two staff content for some reason!
+      html_element(".staff-content") %>% 
+      html_element("p:nth-child(2)") %>% 
+      html_element("span") %>% 
+      html_text()
+    keywords <- .x %>% 
+      html_element(".col-sm-3") %>% 
+      html_element("ul") %>% 
+      html_elements("li") %>% 
+      html_text()
+    tibble(name, position, location, keywords = list(keywords)) %>% 
+      mutate(position = ifelse(name=="Benjamin Wong", "Senior Lecturer", position),
+             status = case_when(str_detect(position, "(Adjunct|Emeritus)") ~ "Adjunct",
+                                str_detect(position, "(EA|Admin|Manager)") ~ "Professional",
+                                TRUE ~ "Academic"),
+             location = case_when(name=="Rob Hyndman" ~ "Clayton",
+                                  name=="Jiti Gao" ~ "Caulfield",
+                                  name=="Tatsushi Oka" ~ "Caulfield",
+                                  TRUE ~ location))
+  })
+  
+academics <- staffs %>% 
+  filter(status=="Academic")
+  
+```
+```{r staff-photo-mashup, echo = FALSE, results = "asis"}
+walk(staff_photos, ~{
+print(glue("<img src={.x} width='7.5%'>"))
+})
+```
+
+We have about `r scales::comma(nrow(academics), 5)` faculty staffs that work on **econometrics**, **business analytics** and **actuarial science** for research and teaching.
+
+```{r staff-counts, include = FALSE}
+academics %>% 
+  mutate(position = factor(position, levels = c("Assistant Lecturer",
+                                                "Research Fellow",
+                                                "Lecturer",
+                                                "Senior Lecturer",
+                                                "Associate Professor",
+                                                "Professor"))) %>% 
+  count(position, location) %>% 
+  pivot_wider(position, names_from =  location, values_from = n, values_fill = 0)
+```
+
+---
+
+# Key interest areas
+
+
+```{r keywordcloud, echo = FALSE, fig.height = 8, fig.width = 12}
+library(ggwordcloud)
+keywords <- tibble(words = unlist(staffs$keywords)) %>% 
+  filter(!words %in% c("Collaborative T&L methodology in large class settings"
+                      )) %>% 
+  mutate(words = tolower(words),
+         words = str_replace(words, ",", ""),
+         words = str_replace(words, "time-series", "time series"),
+         words = recode(words, 
+                        `Operational Research` = "operations research",
+                        `supervision: multivariate times series analysis` = "multivariate times series analysis")) %>%
+  filter(!str_detect(words, "the role of learning spaces")) %>% 
+  count(words)
+
+set.seed(1)
+ggplot(keywords, aes(label = words, size = n,
+                     color = factor(sample.int(10, nrow(keywords), replace = TRUE)))) +
+  geom_text_wordcloud(area_corr_power = 1, rm_outside = TRUE) + 
+  scale_size_area(max_size = 24) + 
+  theme_minimal() +
+  scale_color_viridis_d(option = "mako")
+```
+
+---
+
+# World Leading Econometrics and Forecasting Unit
+
+Selected projects involving our department staffs
+
+.flex[
+.box[
+.box-up[
+<img src="https://www.monash.edu/__data/assets/image/0004/2207461/COVID.jpg" width="100%">
+]
+.box-bottom[
+COVID-19
+]]
+.box[
+.box-up[
+<img src="https://www.monash.edu/__data/assets/image/0011/1589321/lightbulb.jpg" width="100%">
+]
+.box-bottom[
+Energy demand
+]
+]
+.box[
+.box-up[
+<img src="https://www.monash.edu/__data/assets/image/0009/1589319/holding-ipad.jpg" width="100%">
+]
+.box-bottom[
+Tourism
+]
+]]
+
+---
+
+# Software Development
+
+Selected R-packages developed by our department staffs and students
+
+
+```{r hex, cache = FALSE, echo = FALSE, results = "asis"}
+logo_ts <- list.files("images/") %>% 
+  str_subset("^logo-ts")
+
+logo_ed <- list.files("images/") %>% 
+  str_subset("^logo-ed")
+
+logo_bio <- list.files("images/") %>% 
+  str_subset("^logo-bio")
+
+logo_other <- list.files("images/") %>% 
+  str_subset("^logo-other")
+
+walk(logo_ts, ~print(glue("<img src='images/{.x}' width='120px'>")))
+```
+```{r, cache = FALSE, results = "asis", echo = FALSE}
+walk(c(logo_ed, logo_bio, logo_other), ~print(glue("<img src='images/{.x}' width='120px'>")))
+```
+
+
