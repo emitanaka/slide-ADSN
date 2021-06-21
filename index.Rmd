@@ -45,11 +45,11 @@ output:
 
 
 ```{r, include = FALSE}
-printdf <- function(x) kableExtra::kable_classic(knitr::kable(x))
+library(tidyverse)
+library(rvest)
+library(glue)
 current_file <- knitr::current_input()
 basename <- gsub(".Rmd$", "", current_file)
-options(tibble.width = Inf,
-        tibble.print_max = Inf)
 knitr::opts_chunk$set(
   fig.path = "images/",
   fig.width = 6,
@@ -80,7 +80,7 @@ pdflink <- ifelse(is.null(rmarkdown::metadata$pdflink),
 
 
 .info-box.w-50.bg-white[
-These slides are viewed best by Chrome or Firefox and occasionally need to be refreshed if elements did not load properly. Please note this web version takes a while to load. See <a href="`r pdflink`">here for the PDF <i class="fas fa-file-pdf"></i></a>. 
+These slides are viewed best by Chrome or Firefox and occasionally need to be refreshed if elements did not load properly. See <a href="`r pdflink`">here for the PDF <i class="fas fa-file-pdf"></i></a>. 
 ]
 
 <br>
@@ -123,9 +123,6 @@ Presenter: *`r rmarkdown::metadata$author`*
 
 
 ```{r staff-list, echo = FALSE}
-library(tidyverse)
-library(rvest)
-library(glue)
 dat <- read_html("https://www.monash.edu/business/ebs/our-people/staff-directory") %>% 
   html_elements('[class="row"]') 
 
