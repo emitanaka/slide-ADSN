@@ -11,7 +11,34 @@
        url('fonts/dancing-script-v16-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
        url('fonts/dancing-script-v16-latin-700.svg#DancingScript') format('svg'); /* Legacy iOS */
 }
+.profile-photo {
+  display: inline;
+}
+.profile-photo:hover {
+  cursor: pointer;
+}
+.profile-photo:hover .name-tag {
+ width: 150px;
+ padding: 8px 15px;
+ visibility: visible;
+ opacity: 0.7; 
+}
 
+.profile-photo .name-tag {
+ position: absolute;
+ z-index: 90;
+ width: 400px!important;
+ top: 0;
+ right: 0;
+ background: black;
+ color: white;
+ margin-bottom: 5px;
+ font-family: sans-serif;
+ opacity: 0;
+ visibility: hidden;
+ -webkit-transition: visibility 0s, opacity 0.5s linear; 
+ transition: visibility 0s, opacity 0.5s linear;
+}
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .menu {

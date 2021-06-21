@@ -60,7 +60,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   dev.args = list(bg = "transparent"),
   message = FALSE,
-  cache = FALSE,
+  cache = TRUE,
   cache.path = "cache/",
   NULL
 )
@@ -126,19 +126,6 @@ Presenter: *`r rmarkdown::metadata$author`*
 dat <- read_html("https://www.monash.edu/business/ebs/our-people/staff-directory") %>% 
   html_elements('[class="row"]') 
 
-staff_photos <- dat %>% 
-  html_elements(".col-sm-4-img") %>% 
-  html_elements("img") %>% 
-  html_attr("src") %>% 
-  # some don't have photos
-  # these have a pattern with file name XY.jpg where
-  # X = first letter of their first name
-  # Y = first letter of their last name
-  # remove those
-  str_subset("/[:alpha:][:alpha:].jpg$", negate = TRUE) 
-
-staff_photos[str_detect(staff_photos, "Gael-Martin")] <- "images/gael-martin.jpg"
-
 staffs <- dat %>% 
   map_dfr(~{
     name <- .x %>% 
@@ -150,6 +137,17 @@ staffs <- dat %>%
       html_text() %>% 
       str_replace_all("\\r\\n", "") %>% 
       str_squish()
+    link <- .x %>% 
+      html_element(".staff-content") %>% 
+      # two staff content for some reason!
+      html_element(".staff-content") %>% 
+      html_element("p") %>% 
+      html_element("a") %>% 
+      html_attr("href")
+    photo <- .x %>% 
+      html_element(".col-sm-4-img") %>% 
+      html_element("img") %>% 
+      html_attr("src")
     position <- .x %>% 
       html_element(".staff-content") %>% 
       # two staff content for some reason!
@@ -169,7 +167,7 @@ staffs <- dat %>%
       html_element("ul") %>% 
       html_elements("li") %>% 
       html_text()
-    tibble(name, position, location, keywords = list(keywords)) %>% 
+    tibble(name, position, link, location, photo, keywords = list(keywords)) %>% 
       mutate(position = ifelse(name=="Benjamin Wong", "Senior Lecturer", position),
              status = case_when(str_detect(position, "(Adjunct|Emeritus)") ~ "Adjunct",
                                 str_detect(position, "(EA|Admin|Manager)") ~ "Professional",
@@ -177,7 +175,10 @@ staffs <- dat %>%
              location = case_when(name=="Rob Hyndman" ~ "Clayton",
                                   name=="Jiti Gao" ~ "Caulfield",
                                   name=="Tatsushi Oka" ~ "Caulfield",
-                                  TRUE ~ location))
+                                  TRUE ~ location),
+             photo = case_when(str_detect(photo, "/[:alpha:][:alpha:].jpg$") ~ NA_character_,
+                               str_detect(photo, "Gael") ~ "images/gael-martin.jpg",
+                               TRUE ~ photo))
   })
   
 academics <- staffs %>% 
@@ -185,9 +186,13 @@ academics <- staffs %>%
   
 ```
 ```{r staff-photo-mashup, echo = FALSE, results = "asis"}
-walk(staff_photos, ~{
-print(glue("<img src={.x} width='7.5%'>"))
-})
+staffs %>% 
+  filter(!is.na(photo)) %>% 
+  mutate(link = ifelse(is.na(link), "https://www.monash.edu/business/ebs", link)) %>% 
+  select(photo, name, link) %>% 
+  pwalk(function(photo, name, link) {
+    print(glue("<div class='profile-photo'><a href='{link}'><img src={photo} width='7.5%'></a><span class='name-tag'>{name}</span></div>"))
+  })
 ```
 
 We have about `r scales::comma(nrow(academics), 5)` faculty staffs that work on **econometrics**, **business analytics** and **actuarial science** for research and teaching.
