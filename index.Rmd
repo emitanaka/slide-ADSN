@@ -195,7 +195,7 @@ staffs %>%
   })
 ```
 
-We have about `r scales::comma(nrow(academics), 5)` faculty staffs that work on **econometrics**, **business analytics** and **actuarial science** for research and teaching.
+We have about `r scales::comma(nrow(academics), 5)` faculty staffs that work on **econometrics**, **business analytics** and **actuarial science**, on top of **statistics** and **data science**, for research and teaching.
 
 ```{r staff-counts, include = FALSE}
 academics %>% 
