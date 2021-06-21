@@ -287,4 +287,20 @@ walk(logo_ts, ~print(glue("<img src='images/{.x}' width='120px'>")))
 walk(c(logo_ed, logo_bio, logo_other), ~print(glue("<img src='images/{.x}' width='120px'>")))
 ```
 
+---
 
+<img src="images/monash-stacked-blue-rgb-transparent.png" width="200px">
+# Department of Econometrics and Business Statistics
+
+
+<i class="fas fa-link"></i> https://www.monash.edu/business/ebs
+
+<i class="fab fa-twitter"></i> @MonashEBS
+
+<br>
+
+# Non-Uniform Monash Business Analytics Team (NUMBAT)
+
+<i class="fas fa-link"></i>  https://numbat.space/
+
+<i class="fab fa-twitter"></i>  @numbats_rise_up
