@@ -265,8 +265,7 @@ Tourism
 
 # Software Development
 
-Selected R-packages developed by our department staffs and students
-
+Selected R-packages (and Stan) developed by our department staffs and students
 
 ```{r hex, cache = FALSE, echo = FALSE, results = "asis"}
 logo_ts <- list.files("images/") %>% 
@@ -281,11 +280,16 @@ logo_bio <- list.files("images/") %>%
 logo_other <- list.files("images/") %>% 
   str_subset("^logo-other")
 
+logo_stan <- list.files("images/") %>% 
+  str_subset("^logo-stan")
+
 walk(logo_ts, ~print(glue("<img src='images/{.x}' width='120px'>")))
 ```
 ```{r, cache = FALSE, results = "asis", echo = FALSE}
-walk(c(logo_ed, logo_bio, logo_other), ~print(glue("<img src='images/{.x}' width='120px'>")))
+walk(c(logo_ed, logo_bio, logo_other, logo_stan), ~print(glue("<img src='images/{.x}' width='120px'>")))
 ```
+
+
 
 ---
 
