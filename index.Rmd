@@ -214,9 +214,11 @@ academics %>%
 # Key interest areas
 
 
-```{r keywordcloud, echo = FALSE, fig.height = 8, fig.width = 12}
+```{r keywordcloud, echo = FALSE, fig.height = 7.5, fig.width = 15}
+# [CHECK] make sure to check that the significant keywords show up
 library(ggwordcloud)
 keywords <- tibble(words = unlist(staffs$keywords)) %>% 
+  # [TODO] need to clean some keywords
   filter(!words %in% c("Collaborative T&L methodology in large class settings"
                       )) %>% 
   mutate(words = tolower(words),
@@ -231,8 +233,9 @@ keywords <- tibble(words = unlist(staffs$keywords)) %>%
 set.seed(1)
 ggplot(keywords, aes(label = words, size = n,
                      color = factor(sample.int(10, nrow(keywords), replace = TRUE)))) +
-  geom_text_wordcloud(area_corr_power = 1, rm_outside = TRUE) + 
-  scale_size_area(max_size = 24) + 
+  geom_text_wordcloud(area_corr_power = 1)+
+                      #, rm_outside = TRUE) + 
+  scale_size_area(max_size = 14) + 
   theme_minimal() +
   scale_color_viridis_d(option = "mako")
 ```
