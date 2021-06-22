@@ -62,7 +62,7 @@
 
 .circle {
     border-radius: 50%;
-    width: 30px;
+    width: 100px;
     line-height: 30px;
     padding: 3px;
     display:inline-block;
@@ -70,6 +70,23 @@
     color: #006DAE;
 }
 
+.img-bottom {
+  position: absolute;
+  bottom: 5px;
+  left: 40px;
+  visibility: hidden;
+}
+
+
+.box:hover .img-bottom,  .logo-container:hover .img-bottom {
+  visibility: visible;
+}
+
+.logo-container {
+  width: 120px;
+  height: 120px;
+  position: static!important;
+}
 
 .circle-big {
     border-radius: 50%;

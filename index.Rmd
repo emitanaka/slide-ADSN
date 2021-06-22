@@ -5,6 +5,7 @@ email: "emi.tanaka@monash.edu"
 date: "25 June 2021 @ Australia Data Science Network"
 length: "10 minutes"
 department: "Department of Econometrics and Business Statistics"
+pdflink: ""
 output:
   xaringan::moon_reader:
     css:
@@ -56,7 +57,8 @@ knitr::opts_chunk$set(
   fig.height = 4,
   fig.align = "center",
   fig.retina = 3,
-  echo = TRUE,
+  echo = FALSE,
+  results = "asis",
   warning = FALSE,
   dev.args = list(bg = "transparent"),
   message = FALSE,
@@ -67,20 +69,11 @@ knitr::opts_chunk$set(
 ```
 
 
-
 class: middle center hide-slide-number monash-bg-gray80
 
 
-```{r, include = FALSE}
-basename <- ifelse(exists("basename"), basename, "slide")
-pdflink <- ifelse(is.null(rmarkdown::metadata$pdflink),
-                  paste0(basename, ".pdf"),
-                  rmarkdown::metadata$pdflink)
-```
-
-
 .info-box.w-50.bg-white[
-These slides are viewed best by Chrome or Firefox and occasionally need to be refreshed if elements did not load properly. See <a href="`r pdflink`">here for the PDF <i class="fas fa-file-pdf"></i></a>. 
+These slides are viewed best by Chrome or Firefox and occasionally need to be refreshed if elements did not load properly. See <a href="`r rmarkdown::metadata$pdflink`">here for the PDF <i class="fas fa-file-pdf"></i></a>. 
 ]
 
 <br>
@@ -91,7 +84,7 @@ These slides are viewed best by Chrome or Firefox and occasionally need to be re
 
 ---
 
-
+name: title
 background-size: cover
 class: title-slide
 count: false
@@ -117,12 +110,13 @@ Presenter: *`r rmarkdown::metadata$author`*
 
 ---
 
+name: staffs
 
 <img src="images/monash-stacked-blue-rgb-transparent.png" width="200px">
 # Department of Econometrics and Business Statistics
 
 
-```{r staff-list, echo = FALSE}
+```{r staff-list}
 dat <- read_html("https://www.monash.edu/business/ebs/our-people/staff-directory") %>% 
   html_elements('[class="row"]') 
 
@@ -177,7 +171,7 @@ staffs <- dat %>%
                                   name=="Tatsushi Oka" ~ "Caulfield",
                                   TRUE ~ location),
              photo = case_when(str_detect(photo, "/[:alpha:][:alpha:].jpg$") ~ NA_character_,
-                               str_detect(photo, "Gael") ~ "images/gael-martin.jpg",
+                               str_detect(photo, "Gael") ~ "images/photo-gael-martin.jpg",
                                TRUE ~ photo))
   })
   
@@ -185,11 +179,29 @@ academics <- staffs %>%
   filter(status=="Academic")
   
 ```
-```{r staff-photo-mashup, echo = FALSE, results = "asis"}
+```{r download-staff-photos, include = FALSE}
+# let's download the photo in case the site goes down on the day!!
+walk2(staffs$photo, staffs$name, ~{
+  if(!is.na(.x) && str_starts(.x, "https://")) {
+    download.file(.x, 
+                  destfile = glue("images/photo-{janitor::make_clean_names(.y)}.jpg"), 
+                  quiet = TRUE, cacheOK = TRUE)
+    
+  }
+})
+
+staffs <- staffs %>% 
+  rowwise() %>% 
+  mutate(photo2 = glue("images/photo-{janitor::make_clean_names(name)}.jpg"),
+         photo2 = ifelse(!is.na(photo) && !str_starts(photo, "https://"), photo, photo2),
+         photo2 = ifelse(is.na(photo), NA, photo2))
+```
+
+```{r staff-photo-mashup, cache = FALSE}
 staffs %>% 
   filter(!is.na(photo)) %>% 
   mutate(link = ifelse(is.na(link), "https://www.monash.edu/business/ebs", link)) %>% 
-  select(photo, name, link) %>% 
+  select(photo = photo2, name, link) %>% 
   pwalk(function(photo, name, link) {
     print(glue("<div class='profile-photo'><a href='{link}'><img src={photo} width='7.5%'></a><span class='name-tag'>{name}</span></div>"))
   })
@@ -211,10 +223,12 @@ academics %>%
 
 ---
 
+name: interests
+
 # Key interest areas
 
 
-```{r keywordcloud, echo = FALSE, fig.height = 7.5, fig.width = 15}
+```{r keywordcloud, fig.height = 7.5, fig.width = 15}
 # [CHECK] make sure to check that the significant keywords show up
 library(ggwordcloud)
 keywords <- tibble(words = unlist(staffs$keywords)) %>% 
@@ -242,7 +256,23 @@ ggplot(keywords, aes(label = words, size = n,
 
 ---
 
+name: showcase
+
 # World Leading Econometrics and Forecasting Unit
+
+```{r fn-who, include = FALSE, cache = FALSE}
+photos <- list.files("images/") %>% 
+  str_subset("^photo")
+who <- function(name, pos = '') {
+  pics <- map_chr(name, ~{
+      apic <- str_subset(photos, .x)
+      glue("<img class='circle' src='images/{apic}'>") %>% 
+        as.character()
+    }) %>% 
+    paste(collapse = "")
+  glue("<div class='img-bottom' style='{pos}'>{pics}</div>")
+}
+```
 
 Selected projects involving our department staffs
 
@@ -254,6 +284,7 @@ Selected projects involving our department staffs
 ]
 .box-bottom[
 COVID-19
+`r who(c("hyndman", "dianne", "inder", "jiti", "peng"))`
 ]]
 </a>
 <a href="https://www2.monash.edu/impact/articles/econometrics/forecasting-putting-the-smart-into-smart-meters/">
@@ -274,6 +305,7 @@ Energy demand
 .box-bottom[
 Tourism
 ]
+`r who(c("hyndman", "george"))`
 ]
 </a>
 <a href="https://www2.monash.edu/impact/articles/economics/how-to-boost-australian-jobs-construction-and-manufacturing/">
@@ -284,6 +316,7 @@ Tourism
 .box-bottom[
 Employment
 ]
+`r who(c("heather", "farshid", "benjamin"))`
 ]
 </a>
 <a href="https://www2.monash.edu/impact/articles/big-data/cybersecurity-how-data-scrutiny-can-thwart-attacks/">
@@ -306,6 +339,7 @@ Cybersecurity
 .box-bottom[
 Superannuation
 ]
+`r who(c("bonsoo"))`
 ]
 </a>
 <a href="https://www.monash.edu/business/ebs/research/showcase/revolutionising-water-quality-monitoring-in-the-information-age">
@@ -326,6 +360,7 @@ Water quality
 .box-bottom[
 Policy
 ]
+`r who(c("benjamin"))`
 ]
 </a>
 <a href="https://www.monash.edu/business/ebs/research/showcase/loss-based-bayesian-prediction">
@@ -336,6 +371,7 @@ Policy
 .box-bottom[
 Prediction
 ]
+`r who(c("martin", "hyndman", "frazier"))`
 ]
 </a>
 <a href="https://www.monash.edu/business/ebs/research/showcase/new-methods-for-modelling-complex-trends-in-climate-and-energy-time-series">
@@ -357,35 +393,101 @@ Climate & energy econometrics
 
 ---
 
+name: software
+
 # Software Development
 
 Selected R-packages (and Stan) developed by our department staffs and students
 
-```{r hex, cache = FALSE, echo = FALSE, results = "asis"}
-logo_ts <- list.files("images/") %>% 
-  str_subset("^logo-ts")
+```{r hex, cache = FALSE}
+logos <- list.files("images/") %>% 
+  str_subset("^logo")
 
-logo_ed <- list.files("images/") %>% 
-  str_subset("^logo-ed")
+print_logo <- function(x, who = NULL, pos = '') {
+  alogo <- str_subset(logos, paste0(x, "$"))
+  if(is.null(who)) {
+    res <- glue("<img src='images/{alogo}' width='120px'>")
+  } else {
+    devs <- who(who, pos)
+    res <- glue("<div class='logo-container'><img src='images/{alogo}' width='120px'>{devs}</div>")
+  }
+  res
+}
 
-logo_bio <- list.files("images/") %>% 
-  str_subset("^logo-bio")
-
-logo_other <- list.files("images/") %>% 
-  str_subset("^logo-other")
-
-logo_stan <- list.files("images/") %>% 
-  str_subset("^logo-stan")
-
-walk(logo_ts, ~print(glue("<img src='images/{.x}' width='120px'>")))
-```
-```{r, cache = FALSE, results = "asis", echo = FALSE}
-walk(c(logo_ed, logo_bio, logo_other, logo_stan), ~print(glue("<img src='images/{.x}' width='120px'>")))
+walk(str_extract(logos, "[a-z]+.png"), ~print(print_logo(.x)))
 ```
 
+.fr[
+Non-Uniform Monash Business Analytics Team (.monash-blue[**NUMBAT**])
 
+]
 
 ---
+
+name: tidy-forecast
+
+# Tools with human-centered designs
+
+.animate__animated.animate__slideInRight[
+
+## Tidy time series analysis and forecasting
+
+.flex[
+`r print_logo("tsibble.png", who = c("earo_wang", "dianne", "hyndman", "wild"), pos = 'top:150%;')` `r print_logo("tsibbledata.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` `r print_logo("feasts.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` `r print_logo("fable.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` `r print_logo("fasster.png", who = c("wild", "hyndman"), pos = 'top:150%;')` `r print_logo("sugrrants.png", who = c("earo_wang", "dianne", "hyndman"), pos = 'top:150%;')` `r print_logo("gravitas.png", who = c("gupta", "hyndman", "dianne"), pos = 'top:150%;')`
+
+]
+
+]
+<br>
+
+.animate__animated.animate__slideInLeft[
+.fr[
+
+## Grammar of experimental designs
+.fr[
+`r print_logo("edibble.png", who = c("tanaka"), pos = 'right:200%;top:200%;')` `r print_logo("deggust.png", who = c("tanaka"), pos = 'right:200%;top:200%;')`
+
+]]]
+
+---
+
+# Data visualisation 
+
+## Visual inference
+
+```{r, echo = FALSE, results = "asis"}
+walk(str_subset(logo_other, "nullabor"), ~print(glue("<img src='images/{.x}' width='120px'>")))
+```
+.fr[
+## Spatial visualisation
+
+```{r, echo = FALSE, results = "asis"}
+walk(str_subset(logo_other, "sugarbag"), ~print(glue("<img src='images/{.x}' width='120px'>")))
+```
+
+]
+
+## High-dimensinal data visualisation
+
+```{r, echo = FALSE, results = "asis"}
+walk(str_subset(logo_other, "(spinifex|tourr)"), ~print(glue("<img src='images/{.x}' width='120px'>")))
+```
+
+---
+
+exclude: true
+
+# Anomaly detection 
+
+```{r, echo = FALSE, results = "asis"}
+walk(str_subset(logo_other, "(lookout|stray|odd)"), ~print(glue("<img src='images/{.x}' width='120px'>")))
+```
+
+---
+
+
+
+name: contact
 
 <img src="images/monash-stacked-blue-rgb-transparent.png" width="200px">
 # Department of Econometrics and Business Statistics
