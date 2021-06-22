@@ -444,8 +444,8 @@ name: tidy-forecast
 .fr[
 
 ## Grammar of experimental designs
-.fr[
-`r print_logo("edibble.png", who = c("tanaka"), pos = 'right:200%;top:200%;')` `r print_logo("deggust.png", who = c("tanaka"), pos = 'right:200%;top:200%;')`
+.fr.flex[
+`r print_logo("edibble.png", who = c("tanaka"), pos = 'right:100%;top:200%;')` `r print_logo("deggust.png", who = c("tanaka"), pos = 'right:100%;top:200%;')`
 
 ]]]
 
@@ -455,23 +455,22 @@ name: tidy-forecast
 
 ## Visual inference
 
-```{r, echo = FALSE, results = "asis"}
-walk(str_subset(logo_other, "nullabor"), ~print(glue("<img src='images/{.x}' width='120px'>")))
-```
+`r print_logo("nullabor.png", who = c("dianne"), pos = 'right:100%;top:200%;')`
+
 .fr[
 ## Spatial visualisation
 
-```{r, echo = FALSE, results = "asis"}
-walk(str_subset(logo_other, "sugarbag"), ~print(glue("<img src='images/{.x}' width='120px'>")))
-```
+
+`r print_logo("sugarbag.png", who = c("dianne"), pos = 'right:100%;top:200%;')`
+
 
 ]
 
 ## High-dimensinal data visualisation
 
-```{r, echo = FALSE, results = "asis"}
-walk(str_subset(logo_other, "(spinifex|tourr)"), ~print(glue("<img src='images/{.x}' width='120px'>")))
-```
+
+`r print_logo("spinifex.png", who = c("dianne"), pos = 'right:100%;top:200%;')` `r print_logo("tourr.png", who = c("dianne"), pos = 'right:100%;top:200%;')`
+
 
 ---
 
@@ -479,9 +478,7 @@ exclude: true
 
 # Anomaly detection 
 
-```{r, echo = FALSE, results = "asis"}
-walk(str_subset(logo_other, "(lookout|stray|odd)"), ~print(glue("<img src='images/{.x}' width='120px'>")))
-```
+`r print_logo("lookout.png", who = c("hyndman"), pos = 'right:100%;top:200%;')` `r print_logo("stray.png", who = c("hyndman"), pos = 'right:100%;top:200%;')` `r print_logo("oddwater.png", who = c("hyndman"), pos = 'right:100%;top:200%;')`
 
 ---
 
