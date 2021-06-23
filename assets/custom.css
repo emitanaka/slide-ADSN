@@ -394,3 +394,7 @@ table {
 .monash-person {
   border: 7px solid #006DAE;
 }
+
+.econ-person {
+  border: 7px solid black;
+}

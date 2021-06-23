@@ -62,7 +62,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   dev.args = list(bg = "transparent"),
   message = FALSE,
-  cache = TRUE,
+  cache = FALSE,
   cache.path = "cache/",
   NULL
 )
@@ -119,7 +119,7 @@ name: staffs
 <img src="images/monash-stacked-blue-rgb-transparent.png" width="200px">
 # Department of Econometrics and Business Statistics
 
-```{r staff-list}
+```{r staff-list, cache = TRUE}
 dat <- read_html("https://www.monash.edu/business/ebs/our-people/staff-directory") %>% 
   html_elements('[class="row"]') 
 
@@ -238,7 +238,7 @@ name: interests
 # Key interest areas
 
 
-```{r keywordcloud, fig.height = 7.5, fig.width = 16}
+```{r keywordcloud, cache = TRUE, fig.height = 7.5, fig.width = 16}
 # [CHECK] make sure to check that the significant keywords show up
 library(ggwordcloud)
 keywords <- tibble(words = unlist(staffs$keywords)) %>% 
@@ -247,7 +247,9 @@ keywords <- tibble(words = unlist(staffs$keywords)) %>%
                       )) %>% 
   mutate(words = tolower(words),
          words = str_replace(words, ",", ""),
+         words = str_replace(words, "operations", "operational"),
          words = str_replace(words, "commentary:", ""),
+         words = str_replace(words, "visualization", "visualisation"),
          words = str_replace(words, "time-series", "time series"),
          words = recode(words, 
                         `Operational Research` = "operations research",
@@ -265,11 +267,16 @@ ggplot(keywords, aes(label = words, size = n,
   scale_color_viridis_d(option = "mako")
 ```
 
+???
+
+This is a word cloud of the interests of our department staffs. We can see that our staffs have a large interest in econometrics, time series, forecasting, Bayesian methods, statistical computing
+
+
 ---
 
 name: showcase
 
-# World Leading Econometrics and Forecasting Unit
+# World-leading Econometrics and Forecasting Unit
 
 ```{r fn-who, include = FALSE, cache = FALSE}
 photos <- list.files("images/") %>% 
@@ -277,7 +284,9 @@ photos <- list.files("images/") %>%
 who <- function(name, pos = '', monash = rep("m", length(name))) {
   pics <- map2_chr(name, monash, ~{
       apic <- str_subset(photos, .x)
-      mon <- ifelse(.y=="m", "monash-person", "")
+      mon <- case_when(.y=="m" ~ "monash-person",
+                       .y=="e" ~ "econ-person",
+                       TRUE ~ "")
       glue("<img class='circle {mon}' src='images/{apic}'>") %>% 
         as.character()
     }) %>% 
@@ -387,22 +396,138 @@ Bayesian Prediction
 `r who(c("martin", "hyndman", "frazier"))`
 ]
 </a>
-<a href="https://www.monash.edu/business/ebs/research/showcase/new-methods-for-modelling-complex-trends-in-climate-and-energy-time-series">
+<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3770398">
 .box[
 .box-up[
-<img src="https://www.monash.edu/__data/assets/image/0011/2199458/Turbine.jpg" width="100%">
+<img src="images/adam-wilson-6UIonphZA5o-unsplash.jpeg" width="100%">
 ]
 .box-bottom[
-Climate & energy econometrics
+Alcohol tax
 ]
+`r who(c("xueyan"))`
 ]
+
 </a>
 ]
 
 
 
 
+---
 
+name: soda
+
+# Spotlight 🔦 Sleeping pattern from internet usage
+
+.flex[
+.w-50[
+<img src='images/ackerman-internet.png' width = "480px">
+
+]
+.w-50[
+`r who(c("klaus", "angus", "raschky"), pos = "visibility: visible;position:static;margin-right:200px;", monash = c("m", "e", "e"))` 
+
+* Part of .bg-black.pa2.white[**SoDa Labs**]
+* Social science insights from alternative data, e.g.
+  * satellite imagery, 
+  * digitised textual sources, 
+  * internet activity and 
+  * latency, search terms and trends, social media, news, and more.
+]
+]
+
+.bottom_abs.f4[
+Ackermann, Angus & Raschky (2017) The Internet as Quantitative Social Science Platform: Insights
+From a Trillion Observations
+]
+
+---
+
+name: health
+
+# Spotlight 🔦 Health economics
+
+---
+
+name: analytics
+
+# Key insights from domain data analytics 
+
+.flex[
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Bush fire
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Cancer atlas
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Physics
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Environment
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Agriculture
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+
+]
+.flex[
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Human data
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Bioinformatics
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
+]
 
 ---
 
@@ -433,15 +558,18 @@ walk(str_extract(sample(logos), "[a-z]+.png"), ~print(print_logo(.x)))
 ```
 
 .fr[
-Non-Uniform Monash Business Analytics Team (.monash-blue[**NUMBAT**])
+.monash-bg-blue.pa2.white.ba[
+Non-Uniform Monash Business Analytics Team (**NUMBAT**)
+
+]
 
 ]
 
 ---
 
-name: tidy-forecast
+name: tools4humans
 
-# Tools with human-centered designs
+# Spotlight 🔦 Tools with human-centered designs
 
 .animate__animated.animate__slideInRight[
 
@@ -453,7 +581,7 @@ name: tidy-forecast
 ]
 
 ]
-<br>
+<br><br>
 
 .animate__animated.animate__slideInLeft[
 .fr[
@@ -466,7 +594,9 @@ name: tidy-forecast
 
 ---
 
-# Data visualisation 
+name: data-vis
+
+# Spotlight 🔦 Data visualisation 
 
 ## Visual inference
 
@@ -481,28 +611,16 @@ name: tidy-forecast
 
 ]
 
-## High-dimensinal data visualisation
+<br>
 
+## High-dimensional data visualisation
 
-`r print_logo("spinifex.png", who = c("spyrison", "dianne"), pos = '')` `r print_logo("tourr.png", who = c("dianne", "wickham"), pos = '', monash = 'mx')`
-
----
-
-# Future challenges and opportunites 
-
+.flex[
+`r print_logo("tourr.png", who = c("dianne", "wickham"), pos = '', monash = 'mx')` &nbsp;  `r print_logo("spinifex.png", who = c("spyrison", "dianne"), pos = '')` &nbsp;  `r print_logo("ferrn.png",  who = c("sherry", "dianne", "ursula", "nicolas", "patricia"), pos = '', monash = 'mmxxm')` 
+]
 
 
 ---
-
-exclude: true
-
-# Anomaly detection 
-
-`r print_logo("lookout.png", who = c("hyndman"), pos = 'right:100%;top:200%;')` `r print_logo("stray.png", who = c("hyndman"), pos = 'right:100%;top:200%;')` `r print_logo("oddwater.png", who = c("hyndman"), pos = 'right:100%;top:200%;')`
-
----
-
-
 
 name: contact
 
@@ -514,21 +632,28 @@ name: contact
 
 <i class="fab fa-twitter"></i> [@MonashEBS](https://twitter.com/monashebs)
 
+<div class="w-50 f3" style='position:absolute;right:5px;top:150px;padding:30px;'>
+Theoretical foundations & methodology in statistics and econometrics, mixed with development of computational tools and translational research 
+</div>
+
 <br>
-Theoretical foundations & methodology in statistics and econometrics, mixed with <br>
+
+.fr.bg-black.white.pa2[
+## SoDa Labs: social science insights from alternative data
+]
 .fr[
-development of computational tools and translational research 
+<i class="fas fa-link"></i>    https://www.monash.edu/business/soda-labs/home
+
+<i class="fab fa-twitter"></i> [@TheRealSodaLabs](https://twitter.com/TheRealSodaLabs)
 ]
 
-<br>
-<br>
 
-.fr[
-## Non-Uniform Monash Business Analytics Team (NUMBAT)
-.fr[
+<br><br><br>
+
+## .monash-bg-blue.white.pl2.pr2.pt2.pb1[Non-Uniform Monash &nbsp;  &nbsp;Business Analytics Team (NUMBAT)]
+
 <i class="fas fa-link"></i>  https://numbat.space/
 
 <i class="fab fa-twitter"></i>  [@numbats_rise_up](https://twitter.com/numbats_rise_up)
 
-]
-]
+
