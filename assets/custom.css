@@ -436,11 +436,37 @@ figcaption {
 
 .newspaper {
    font-family: 'Droid Serif', serif;
-   font-size: 14px;
+   font-size: 24px!important;
    color: #2f2f2f;
    background-color: #f9f7f1;
 }
 
 .newspaper h2 {
   font-family: 'Droid Serif', serif;
+  font-size: 30px!important;
+}
+
+.headline{
+    font-weight: 700;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+    text-align: center;
+}
+.headline:before{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 7px;
+    display: block;
+    margin: 0 auto;
+}
+.headline:after{
+    border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 10px;
+    display: block;
+    margin: 0 auto;
+
 }
