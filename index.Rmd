@@ -173,8 +173,7 @@ staffs <- dat %>%
                                   name=="Jiti Gao" ~ "Caulfield",
                                   name=="Tatsushi Oka" ~ "Caulfield",
                                   TRUE ~ location),
-             photo = case_when(str_detect(photo, "/[:alpha:][:alpha:].jpg$") ~ NA_character_,
-                               str_detect(photo, "Gael") ~ "images/photo-gael-martin.jpg",
+             photo = case_when(str_detect(photo, "Gael") ~ "images/photo-gael-martin.jpg",
                                TRUE ~ photo))
   })
   
@@ -199,13 +198,13 @@ walk2(staffs$photo, staffs$name, ~{
 staffs <- staffs %>% 
   rowwise() %>% 
   mutate(photo2 = glue("images/photo-{janitor::make_clean_names(name)}.jpg"),
-         photo2 = ifelse(!is.na(photo) && !str_starts(photo, "https://"), photo, photo2),
-         photo2 = ifelse(is.na(photo), NA, photo2))
+         photo2 = ifelse(!str_starts(photo, "https://"), photo, photo2),
+         photo2 = ifelse(str_detect(photo, "/[:alpha:][:alpha:].jpg$") , NA, photo2))
 ```
 
 ```{r staff-photo-mashup, cache = FALSE}
 staffs %>% 
-  filter(!is.na(photo)) %>% 
+  filter(!is.na(photo2)) %>% 
   mutate(link = ifelse(is.na(link), "https://www.monash.edu/business/ebs", link)) %>% 
   select(photo = photo2, name, link) %>% 
   pwalk(function(photo, name, link) {
@@ -295,7 +294,7 @@ who <- function(name, pos = '', monash = rep("m", length(name))) {
 }
 ```
 
-Selected projects involving our department staffs
+Selected projects and areas involving our department staffs
 
 .flex[
 <a href="https://www.monash.edu/business/ebs/research/showcase/covid19-research">
@@ -308,17 +307,7 @@ COVID-19
 `r who(c("hyndman", "dianne", "inder", "jiti", "peng"))`
 ]]
 </a>
-<a href="https://www2.monash.edu/impact/articles/econometrics/forecasting-putting-the-smart-into-smart-meters/">
-.box[
-.box-up[
-<img src="https://www.monash.edu/__data/assets/image/0011/1589321/lightbulb.jpg" width="100%">
-]
-.box-bottom[
-Economics
-]
-`r who(c("wei", "natalia", "brooks", "xibin", "janjala", "didier", "ruben", "dan_zhu", "melser", "roberts"))`
-]
-</a>
+
 <a href="https://www2.monash.edu/impact/articles/economy/how-a-tourism-slump-revolutionised-global-forecasting/">
 .box[
 .box-up[
@@ -341,18 +330,6 @@ Employment
 `r who(c("heather", "farshid", "benjamin"))`
 ]
 </a>
-<a href="https://www2.monash.edu/impact/articles/big-data/cybersecurity-how-data-scrutiny-can-thwart-attacks/">
-.box[
-.box-up[
-<img src="https://www.monash.edu/__data/assets/image/0010/2391238/fb-markus-spiske-70Rir5vB96U-unsplash.jpg" width="100%">
-]
-.box-bottom[
-Cybersecurity
-]
-]
-</a>
-]
-.flex[
 <a href="https://www.monash.edu/business/ebs/research/showcase/towards-a-superannuation-system-fit-for-the-future">
 .box[
 .box-up[
@@ -362,28 +339,6 @@ Cybersecurity
 Superannuation
 ]
 `r who(c("bonsoo"))`
-]
-</a>
-<a href="https://www.monash.edu/business/ebs/research/showcase/revolutionising-water-quality-monitoring-in-the-information-age">
-.box[
-.box-up[
-<img src="https://www.monash.edu/__data/assets/image/0008/2361275/fb-GettyImages-913769928.jpg" width="100%">
-]
-.box-bottom[
-Water quality
-]
-`r who(c("hyndman", "mengersen"), monash = c("m", "x"))`
-]
-</a>
-<a href="https://www.monash.edu/business/ebs/research/showcase/understanding-the-sources-of-secular-stagnation">
-.box[
-.box-up[
-<img src="https://www.monash.edu/__data/assets/image/0006/1797162/GettyImages-553115739.jpg" width="100%">
-]
-.box-bottom[
-Policy
-]
-`r who(c("benjamin"))`
 ]
 </a>
 <a href="https://www.monash.edu/business/ebs/research/showcase/loss-based-bayesian-prediction">
@@ -397,18 +352,55 @@ Bayesian Prediction
 `r who(c("martin", "hyndman", "frazier"))`
 ]
 </a>
-<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3770398">
+]
+.flex[
 .box[
 .box-up[
 <img src="images/adam-wilson-6UIonphZA5o-unsplash.jpeg" width="100%">
 ]
 .box-bottom[
-Alcohol tax
+Applied econometrics
 ]
-`r who(c("xueyan"))`
+`r who(c("brett", "natalia", "tatsushi", "xueyan", "peng", "benjamin", "klaus"))`
+]
+.box[
+.box-up[
+<img src="images/photo-1524995997946-a1c2e315a42f.jpeg" width="100%">
+]
+.box-bottom[
+Econometrics education
+]
+`r who(c("roberts", "stapleton"))`
 ]
 
-</a>
+.box[
+.box-up[
+<img src="https://www.monash.edu/__data/assets/image/0006/1797162/GettyImages-553115739.jpg" width="100%">
+]
+.box-bottom[
+Financial econometrics
+]
+`r who(c("jiti", "brooks", "pantelous", "catherine", "bonsoo", "xibin", "wei"))`
+]
+
+.box[
+.box-up[
+<img src="images/photo-1535320903710-d993d3d77d29.jpeg" width="100%">
+]
+.box-bottom[
+Macroeconomics
+]
+`r who(c("heather", "benjamin", "ruben", "zhuo", "guido"))`
+]
+.box[
+.box-up[
+<img src="images/photo-1454923634634-bd1614719a7b.jpeg" width="100%">
+]
+.box-bottom[
+Micro-economics
+]
+`r who(c("xueyan", "duangkamon", "keith", "denni"))`
+]
 ]
 
 
@@ -454,111 +446,72 @@ name: analytics
 
 # Key insights from domain data analytics 
 
-.flex[
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Bush fire
+.container[
+<figure>
+<img src="images/jeremy-zero--sY3XOBqTRg-unsplash.jpeg" width="100%">
+<figcaption>Bush fire</figcaption>
 `r who(c("dianne", "xueyan"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Cancer atlas
+</figure>
+<figure>
+<img src="images/aus-cancer-atlas.png" width="100%">
 `r who(c("dianne"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Physics
-`r who(c("dianne", "xueyan"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Environment & Ecology
+<figcaption></figcaption>
+</figure>
+<figure>
+<img src="images/physics.jpeg" width="100%">
+<figcaption>Physics</figcaption>
+`r who(c("dianne"))`
+</figure>
+<figure>
+<img src="images/francesco-ungaro-MJ1Q7hHeGlA-unsplash.jpeg" width="100%">
+<figcaption>Environment & Ecology</figcaption>
 `r who(c("patricia"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Agriculture
+</figure>
+<figure>
+<img src="images/ant-rozetsky--c0PJUAtpSo-unsplash.jpeg" width="100%">
+<figcaption>Agriculture</figcaption>
 `r who(c("tanaka", "patricia", "dianne"))`
-]]
-</a>
-
-]
-.flex[
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Human data
+</figure>
+<figure>
+<img src="images/helena-lopes-DkGIAjlIJu0-unsplash.jpeg" width="100%">
+<figcaption>Human data</figcaption>
 `r who(c("lauren"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Bioinformatics
+</figure>
+<figure>
+<img src="images/photo-1582719298866-977ee81c87d7.jpeg" width="100%">
+<figcaption>Bioinformatics</figcaption>
 `r who(c("dianne", "tanaka", "stuart"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Election & Census
+</figure>
+<figure>
+<img src="images/photo-1540910419892-4a36d2c3266c.jpeg" width="100%">
+<figcaption>Election</figcaption>
 `r who(c("dianne", "hyndman"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
+</figure>
+<figure>
+<img src="images/photo-1579621970795-87facc2f976d.jpeg" width="100%">
+<figcaption>Actuary</figcaption>
+`r who(c("hamza", "julie", "athanasios", "dan_zhu"))`
+</figure>
+<figure>
+<img src="https://www.monash.edu/__data/assets/image/0008/2361275/fb-GettyImages-913769928.jpg" width="100%">
+<figcaption>Water quality</figcaption>
+`r who(c("hyndman", "wild"))`
+</figure>
+<figure>
+<img src="https://www.monash.edu/__data/assets/image/0011/1589321/lightbulb.jpg" width="100%">
+<figcaption>Energy usage</figcaption>
+`r who(c("george", "hyndman"))`
+</figure>
+<figure>
+<img src="images/daniel-pelaez-duque-reM0KanLYts-unsplash.jpeg" width="100%">
+<figcaption>Census</figcaption>
+`r who(c("hyndman", "dianne"))`
+</figure>
 ]
-.box-bottom[
-Actuary
-`r who(c("hamza", "julie"))`
-]]
-</a>
-<a href="">
-.box[
-.box-up[
-<img src="" width="100%">
-]
-.box-bottom[
-Poverty
-`r who(c("lauren", "brett"))`
-]]
-</a>
-]
+
+
+
+
 
 ---
 
@@ -663,7 +616,7 @@ name: contact
 
 <i class="fab fa-twitter"></i> [@MonashEBS](https://twitter.com/monashebs)
 
-<div class="w-50 f3" style='position:absolute;right:5px;top:150px;padding:30px;'>
+<div class="w-45 f3" style='position:absolute;right:30px;top:160px;padding:30px;border:1px solid black;padding:10px;'>
 Theoretical foundations & methodology in statistics and econometrics, mixed with development of computational tools and translational research 
 </div>
 
