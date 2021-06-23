@@ -314,8 +314,9 @@ COVID-19
 <img src="https://www.monash.edu/__data/assets/image/0011/1589321/lightbulb.jpg" width="100%">
 ]
 .box-bottom[
-Energy demand
+Economics
 ]
+`r who(c("wei", "natalia", "brooks", "xibin", "janjala", "didier", "ruben", "dan_zhu", "melser", "roberts"))`
 ]
 </a>
 <a href="https://www2.monash.edu/impact/articles/economy/how-a-tourism-slump-revolutionised-global-forecasting/">
