@@ -527,6 +527,16 @@ Bioinformatics
 `r who(c("dianne", "xueyan"))`
 ]]
 </a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Election and Census
+`r who(c("dianne", "xueyan"))`
+]]
+</a>
 ]
 
 ---
