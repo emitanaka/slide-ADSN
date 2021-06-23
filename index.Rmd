@@ -471,7 +471,7 @@ Bush fire
 ]
 .box-bottom[
 Cancer atlas
-`r who(c("dianne", "xueyan"))`
+`r who(c("dianne"))`
 ]]
 </a>
 <a href="">
@@ -490,8 +490,8 @@ Physics
 <img src="" width="100%">
 ]
 .box-bottom[
-Environment
-`r who(c("dianne", "xueyan"))`
+Environment & Ecology
+`r who(c("patricia"))`
 ]]
 </a>
 <a href="">
@@ -501,7 +501,7 @@ Environment
 ]
 .box-bottom[
 Agriculture
-`r who(c("dianne", "xueyan"))`
+`r who(c("tanaka", "patricia", "dianne"))`
 ]]
 </a>
 
@@ -514,7 +514,7 @@ Agriculture
 ]
 .box-bottom[
 Human data
-`r who(c("dianne", "xueyan"))`
+`r who(c("lauren"))`
 ]]
 </a>
 <a href="">
@@ -524,7 +524,7 @@ Human data
 ]
 .box-bottom[
 Bioinformatics
-`r who(c("dianne", "xueyan"))`
+`r who(c("dianne", "tanaka", "stuart"))`
 ]]
 </a>
 <a href="">
@@ -533,8 +533,28 @@ Bioinformatics
 <img src="" width="100%">
 ]
 .box-bottom[
-Election and Census
-`r who(c("dianne", "xueyan"))`
+Election & Census
+`r who(c("dianne", "hyndman"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Actuary
+`r who(c("hamza", "julie"))`
+]]
+</a>
+<a href="">
+.box[
+.box-up[
+<img src="" width="100%">
+]
+.box-bottom[
+Poverty
+`r who(c("lauren", "brett"))`
 ]]
 </a>
 ]
