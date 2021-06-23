@@ -436,9 +436,42 @@ From a Trillion Observations
 
 ---
 
-name: health
+class: newspaper
+name: economics
 
-# Spotlight 🔦 Health economics
+# Spotlight 🔦 Policy and health economics
+
+<img class="circle" src="images/photo-xueyan_zhao.jpg" style="visibility:visible;position:absolute;top:10px;right:10px; filter: grayscale(100%);border:none;">
+
+.flex[
+.w-33.br.pa3[
+## Alcohol taxation 
+
+"Equal Tax for Equal Alcohol? Beverage Types and Antisocial and Unlawful Behaviours" 
+
+
+## Government Environmental stringency policies and productivity in OECD countries
+
+
+]
+.w-33.br.pa3[
+## Prescription drug use and mental health
+
+"New research provides a more detailed picture of why Australians are increasingly abusing pharmaceutical drugs."
+
+## Mental health length of stay and psychiatric readmission
+
+]
+.w-33.pa3[
+## Private vs Public hospital length of stay for hip replacement
+
+[Short outcome?]
+
+## Bushfires, pollution and hospital respiratory admission
+
+]
+]
+
 
 ---
 
@@ -490,7 +523,7 @@ name: analytics
 <figure>
 <img src="images/photo-1579621970795-87facc2f976d.jpeg" width="100%">
 <figcaption>Actuary</figcaption>
-`r who(c("hamza", "julie", "athanasios", "dan_zhu"))`
+`r who(c("hamza", "julie", "athanasios", "dan_zhu", "matthews", "nikpour"))`
 </figure>
 <figure>
 <img src="https://www.monash.edu/__data/assets/image/0008/2361275/fb-GettyImages-913769928.jpg" width="100%">
