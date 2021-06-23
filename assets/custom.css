@@ -64,10 +64,10 @@
     border-radius: 50%;
     width: 100px;
     line-height: 30px;
-    padding: 3px;
     display:inline-block;
     background-color: white;
     color: #006DAE;
+    border: 7px solid white;
 }
 
 .img-bottom {
@@ -389,4 +389,8 @@ table {
 
 .box:hover {
   box-shadow: 0 8px 6px -6px black
+}
+
+.monash-person {
+  border: 7px solid #006DAE;
 }

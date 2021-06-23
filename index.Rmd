@@ -107,6 +107,10 @@ Presenter: *`r rmarkdown::metadata$author`*
 
 ]
 
+???
+
+Hi everyone, I'm Emi Tanaka and I'm one of the faculty staff at the Department of Econometrics and Business Statistics. 
+
 
 ---
 
@@ -114,7 +118,6 @@ name: staffs
 
 <img src="images/monash-stacked-blue-rgb-transparent.png" width="200px">
 # Department of Econometrics and Business Statistics
-
 
 ```{r staff-list}
 dat <- read_html("https://www.monash.edu/business/ebs/our-people/staff-directory") %>% 
@@ -179,7 +182,7 @@ academics <- staffs %>%
   filter(status=="Academic")
   
 ```
-```{r download-staff-photos, include = FALSE}
+```{r download-staff-photos, eval = FALSE}
 # let's download the photo in case the site goes down on the day!!
 walk2(staffs$photo, staffs$name, ~{
   if(!is.na(.x) && str_starts(.x, "https://")) {
@@ -187,9 +190,12 @@ walk2(staffs$photo, staffs$name, ~{
                   destfile = glue("images/photo-{janitor::make_clean_names(.y)}.jpg"), 
                   quiet = TRUE, cacheOK = TRUE)
     
-  }
+  } 
 })
+```
 
+
+```{r update-staff-photos-to-local, include = FALSE}
 staffs <- staffs %>% 
   rowwise() %>% 
   mutate(photo2 = glue("images/photo-{janitor::make_clean_names(name)}.jpg"),
@@ -221,6 +227,10 @@ academics %>%
   pivot_wider(position, names_from =  location, values_from = n, values_fill = 0)
 ```
 
+???
+
+Unlike other partner organisations that have been introduced in the Australian Data Science Network,  we are not a centre or lab but a department -- but quite a big department that consists of about 50 faculty members that work in econometrics, business analytics and acturial studies, and all this build on the foundation of statistics and data science. 
+
 ---
 
 name: interests
@@ -228,7 +238,7 @@ name: interests
 # Key interest areas
 
 
-```{r keywordcloud, fig.height = 7.5, fig.width = 15}
+```{r keywordcloud, fig.height = 7.5, fig.width = 16}
 # [CHECK] make sure to check that the significant keywords show up
 library(ggwordcloud)
 keywords <- tibble(words = unlist(staffs$keywords)) %>% 
@@ -237,6 +247,7 @@ keywords <- tibble(words = unlist(staffs$keywords)) %>%
                       )) %>% 
   mutate(words = tolower(words),
          words = str_replace(words, ",", ""),
+         words = str_replace(words, "commentary:", ""),
          words = str_replace(words, "time-series", "time series"),
          words = recode(words, 
                         `Operational Research` = "operations research",
@@ -263,10 +274,11 @@ name: showcase
 ```{r fn-who, include = FALSE, cache = FALSE}
 photos <- list.files("images/") %>% 
   str_subset("^photo")
-who <- function(name, pos = '') {
-  pics <- map_chr(name, ~{
+who <- function(name, pos = '', monash = rep("m", length(name))) {
+  pics <- map2_chr(name, monash, ~{
       apic <- str_subset(photos, .x)
-      glue("<img class='circle' src='images/{apic}'>") %>% 
+      mon <- ifelse(.y=="m", "monash-person", "")
+      glue("<img class='circle {mon}' src='images/{apic}'>") %>% 
         as.character()
     }) %>% 
     paste(collapse = "")
@@ -350,6 +362,7 @@ Superannuation
 .box-bottom[
 Water quality
 ]
+`r who(c("hyndman", "mengersen"), monash = c("m", "x"))`
 ]
 </a>
 <a href="https://www.monash.edu/business/ebs/research/showcase/understanding-the-sources-of-secular-stagnation">
@@ -369,7 +382,7 @@ Policy
 <img src="https://www.monash.edu/__data/assets/image/0008/2345183/fb-GettyImages-1205400173.jpg" width="100%">
 ]
 .box-bottom[
-Prediction
+Bayesian Prediction
 ]
 `r who(c("martin", "hyndman", "frazier"))`
 ]
@@ -403,18 +416,20 @@ Selected R-packages (and Stan) developed by our department staffs and students
 logos <- list.files("images/") %>% 
   str_subset("^logo")
 
-print_logo <- function(x, who = NULL, pos = '') {
+print_logo <- function(x, who = NULL, pos = '', 
+                       monash =  paste(rep("m", length(who)), collapse = "")) {
+  monash <- str_split(monash, "")[[1]]
   alogo <- str_subset(logos, paste0(x, "$"))
   if(is.null(who)) {
     res <- glue("<img src='images/{alogo}' width='120px'>")
   } else {
-    devs <- who(who, pos)
+    devs <- who(who, pos, monash = monash)
     res <- glue("<div class='logo-container'><img src='images/{alogo}' width='120px'>{devs}</div>")
   }
   res
 }
 
-walk(str_extract(logos, "[a-z]+.png"), ~print(print_logo(.x)))
+walk(str_extract(sample(logos), "[a-z]+.png"), ~print(print_logo(.x)))
 ```
 
 .fr[
@@ -433,7 +448,7 @@ name: tidy-forecast
 ## Tidy time series analysis and forecasting
 
 .flex[
-`r print_logo("tsibble.png", who = c("earo_wang", "dianne", "hyndman", "wild"), pos = 'top:150%;')` `r print_logo("tsibbledata.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` `r print_logo("feasts.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` `r print_logo("fable.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` `r print_logo("fasster.png", who = c("wild", "hyndman"), pos = 'top:150%;')` `r print_logo("sugrrants.png", who = c("earo_wang", "dianne", "hyndman"), pos = 'top:150%;')` `r print_logo("gravitas.png", who = c("gupta", "hyndman", "dianne"), pos = 'top:150%;')`
+`r print_logo("tsibble.png", who = c("earo_wang", "dianne", "hyndman", "wild"), pos = 'top:150%;')` &nbsp; `r print_logo("tsibbledata.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` &nbsp; `r print_logo("feasts.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` &nbsp; `r print_logo("fable.png", who = c("wild", "hyndman", "earo"), pos = 'top:150%;')` &nbsp; `r print_logo("fasster.png", who = c("wild", "hyndman"), pos = 'top:150%;')` &nbsp; `r print_logo("sugrrants.png", who = c("earo_wang", "dianne", "hyndman"), pos = 'top:150%;')` &nbsp; `r print_logo("gravitas.png", who = c("gupta", "hyndman", "dianne", "unwin"), pos = 'top:150%;', monash = c("mmmx"))`
 
 ]
 
@@ -445,7 +460,7 @@ name: tidy-forecast
 
 ## Grammar of experimental designs
 .fr.flex[
-`r print_logo("edibble.png", who = c("tanaka"), pos = 'right:100%;top:200%;')` `r print_logo("deggust.png", who = c("tanaka"), pos = 'right:100%;top:200%;')`
+`r print_logo("edibble.png", who = c("tanaka"), pos = 'right:100%;top:200%;')`  &nbsp; `r print_logo("deggust.png", who = c("tanaka"), pos = 'right:100%;top:200%;')`
 
 ]]]
 
@@ -455,13 +470,13 @@ name: tidy-forecast
 
 ## Visual inference
 
-`r print_logo("nullabor.png", who = c("dianne"), pos = 'right:100%;top:200%;')`
+`r print_logo("nullabor.png", who = c("dianne", "wickham", "chowdhury", "hofmann"), monash = "mxxx")`
 
 .fr[
 ## Spatial visualisation
 
 
-`r print_logo("sugarbag.png", who = c("dianne"), pos = 'right:100%;top:200%;')`
+`r print_logo("sugarbag.png", who = c("kobakian", "dianne"), pos = '')`
 
 
 ]
@@ -469,7 +484,12 @@ name: tidy-forecast
 ## High-dimensinal data visualisation
 
 
-`r print_logo("spinifex.png", who = c("dianne"), pos = 'right:100%;top:200%;')` `r print_logo("tourr.png", who = c("dianne"), pos = 'right:100%;top:200%;')`
+`r print_logo("spinifex.png", who = c("spyrison", "dianne"), pos = '')` `r print_logo("tourr.png", who = c("dianne", "wickham"), pos = '', monash = 'mx')`
+
+---
+
+# Future challenges and opportunites 
+
 
 
 ---
@@ -492,12 +512,23 @@ name: contact
 
 <i class="fas fa-link"></i> https://www.monash.edu/business/ebs
 
-<i class="fab fa-twitter"></i> @MonashEBS
+<i class="fab fa-twitter"></i> [@MonashEBS](https://twitter.com/monashebs)
 
 <br>
+Theoretical foundations & methodology in statistics and econometrics, mixed with <br>
+.fr[
+development of computational tools and translational research 
+]
 
-# Non-Uniform Monash Business Analytics Team (NUMBAT)
+<br>
+<br>
 
+.fr[
+## Non-Uniform Monash Business Analytics Team (NUMBAT)
+.fr[
 <i class="fas fa-link"></i>  https://numbat.space/
 
-<i class="fab fa-twitter"></i>  @numbats_rise_up
+<i class="fab fa-twitter"></i>  [@numbats_rise_up](https://twitter.com/numbats_rise_up)
+
+]
+]
