@@ -212,7 +212,7 @@ staffs %>%
   })
 ```
 
-We have about `r scales::comma(nrow(academics), 5)` faculty staffs that work on **econometrics**, **business analytics** and **actuarial science**, on top of **statistics** and **data science**, for research and teaching.
+We have about `r scales::comma(nrow(academics), 5)` faculty staff who work on **econometrics**, **business analytics** and **actuarial science**, on top of **statistics** and **data science**, for research and teaching.
 
 ```{r staff-counts, include = FALSE}
 academics %>% 
@@ -349,7 +349,7 @@ Superannuation
 .box-bottom[
 Bayesian Prediction
 ]
-`r who(c("martin", "hyndman", "frazier"))`
+`r who(c("martin", "hyndman", "frazier", "zhuo", "luis"))`
 ]
 </a>
 ]
@@ -699,7 +699,7 @@ name: contact
 <i class="fab fa-twitter"></i> [@MonashEBS](https://twitter.com/monashebs)
 
 <div class="w-45 f3" style='position:absolute;right:30px;top:160px;padding:30px;border:1px solid black;padding:10px;'>
-Theoretical foundations & methodology in statistics and econometrics, mixed with development of computational tools and translational research 
+Theoretical foundations & methodology in statistics and econometrics, combined with the development of computational tools and translational research 
 </div>
 
 <br>
