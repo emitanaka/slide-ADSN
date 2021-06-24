@@ -5,7 +5,7 @@ email: "emi.tanaka@monash.edu"
 date: "25 June 2021 @ Australia Data Science Network"
 length: "10 minutes"
 department: "Department of Econometrics and Business Statistics"
-pdflink: ""
+pdflink: "monash-ebs.pdf"
 output:
   xaringan::moon_reader:
     css:
@@ -62,7 +62,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   dev.args = list(bg = "transparent"),
   message = FALSE,
-  cache = FALSE,
+  cache = TRUE,
   cache.path = "cache/",
   NULL
 )
@@ -109,7 +109,7 @@ Presenter: *`r rmarkdown::metadata$author`*
 
 ???
 
-Hi everyone, I'm Emi Tanaka and I'm one of the faculty staff at the Department of Econometrics and Business Statistics. 
+Hi everyone, I'm Emi Tanaka and I'm one of the faculty members at the Department of Econometrics and Business Statistics and today I'm going to introduce my department along with some spotlights on the work of our department members. 
 
 
 ---
@@ -202,7 +202,7 @@ staffs <- staffs %>%
          photo2 = ifelse(str_detect(photo, "/[:alpha:][:alpha:].jpg$") , NA, photo2))
 ```
 
-```{r staff-photo-mashup, cache = FALSE}
+```{r staff-photo-mashup, cache = TRUE}
 staffs %>% 
   filter(!is.na(photo2)) %>% 
   mutate(link = ifelse(is.na(link), "https://www.monash.edu/business/ebs", link)) %>% 
@@ -229,6 +229,14 @@ academics %>%
 ???
 
 Unlike other partner organisations that have been introduced in the Australian Data Science Network,  we are not a centre or lab but a department -- but quite a big department that consists of about 50 faculty members that work in econometrics, business analytics and acturial studies, and all this build on the foundation of statistics and data science. 
+
+A number of our department staffs are recognised as most distinguished individuals in their discipline. For example, 
+
+* our head of department, Rob Hyndman has been recently elected to Australian Academy of Science
+* a number of staffs are fellows of Academy of Social Sciences in Australia (Heather, Jiti, Rob, Max King, Gael, Keith McLaren, Alan Powell, Farshid)
+* Fellow of American Statistical Association: Di
+* Fellow of International Association for Applied Econometrics: Farshid and Heather 
+* Fellow of Journal of Econometrics: Jiti
 
 ---
 
@@ -277,7 +285,7 @@ name: showcase
 
 # World-leading Econometrics and Forecasting Unit
 
-```{r fn-who, include = FALSE, cache = FALSE}
+```{r fn-who, include = FALSE, cache = TRUE}
 photos <- list.files("images/") %>% 
   str_subset("^photo")
 who <- function(name, pos = '', monash = rep("m", length(name))) {
@@ -478,9 +486,14 @@ The OECD environment and production data shows more strict policy in fact in the
 by Xueyan Zhao
 ]
 
-New research provides a more detailed picture of why Australians are increasingly abusing pharmaceutical drugs.
 
-## Mental health length of stay and psychiatric readmission
+
+Mental health problems are driving Australia’s increasing misuse of pharmaceutical drugs including painkillers, tranquillizers and steroids, new research has found.
+
+
+<br>
+
+## Mental health: length of stay and psychiatric re-admission
 
 .headline[
 by Yan Meng and Xueyan Zhao
@@ -507,7 +520,7 @@ by Callum Shaw, Xueyan Zhao and Dianne Cook
 
 ???
 
-A number of staffs study the effects of policy. Here we have a spotlight on Xueyan who works on large number of health, government and survey data to study policy and health economics. 
+A number of staffs study the effects of policy. Here we have a spotlight on Xueyan who works on a large number of health, government and survey data to study policy and health economics. 
 
 ---
 
@@ -564,7 +577,7 @@ name: analytics
 <figure>
 <img src="https://www.monash.edu/__data/assets/image/0008/2361275/fb-GettyImages-913769928.jpg" width="100%">
 <figcaption>Water quality</figcaption>
-`r who(c("hyndman", "wild"))`
+`r who(c("hyndman", "puwasala"))`
 </figure>
 <figure>
 <img src="https://www.monash.edu/__data/assets/image/0011/1589321/lightbulb.jpg" width="100%">
@@ -592,7 +605,7 @@ name: software
 
 Selected R-packages (and Stan) developed by our department staffs and students
 
-```{r hex, cache = FALSE}
+```{r hex, cache = TRUE}
 logos <- list.files("images/") %>% 
   str_subset("^logo")
 
@@ -630,6 +643,9 @@ name: tools4humans
 
 # Spotlight 🔦 Tools with human-centered designs
 
+<br>
+
+
 .animate__animated.animate__slideInRight[
 
 ## Tidy time series analysis and forecasting
@@ -658,28 +674,47 @@ Some of the tool development focus on the human user aspect and make it easier t
 ---
 
 name: data-vis
+class: bg-newspaper
 
-# Spotlight 🔦 Data visualisation 
+# .black[Spotlight 🔦 Data visualisation]
 
+.center.w-30.bg-white.h-35.ba.showcase-container[
 ## Visual inference
 
 `r print_logo("nullabor.png", who = c("dianne", "wickham", "chowdhury", "hofmann"), monash = "mxxx")`
 
-.fr[
-## Spatial visualisation
-
-
-`r print_logo("sugarbag.png", who = c("kobakian", "dianne"), pos = '')`
-
+```{r nullabor-showcase, fig.width = 10, results='hold', fig.show='hide'}
+library(nullabor)
+d <- lineup(null_permute("mpg"), mtcars, n = 5, pos = 2)
+ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample, nrow = 1) +
+  theme_bw() + theme(axis.text = element_blank(),
+                     axis.title = element_blank(),
+                     axis.ticks.length = unit(0, "mm"),
+                     plot.background = element_rect(fill = "transparent"))
+```
+<img src="images/nullabor-showcase-1.png" class="showcase">
 
 ]
 
 <br>
 
+.fr.center.w-30.bg-white.h-35.ba.showcase-container[
+## Spatial visualisation
+
+
+`r print_logo("sugarbag.png", who = c("kobakian", "dianne"), pos = '')`
+
+<img src="images/tasmania_animation.gif" class="showcase">
+]
+.center.w-50.bg-white.h-35.ba.ml4.showcase-container[
+
 ## High-dimensional data visualisation
 
 .flex[
 `r print_logo("tourr.png", who = c("dianne", "wickham"), pos = '', monash = 'mx')` &nbsp;  `r print_logo("spinifex.png", who = c("spyrison", "dianne"), pos = '')` &nbsp;  `r print_logo("ferrn.png",  who = c("sherry", "dianne", "ursula", "nicolas", "patricia"), pos = '', monash = 'mmxxm')` 
+]
+<img src="images/tourr-output.png" class="showcase">
+
 ]
 
 ???
@@ -724,4 +759,8 @@ Theoretical foundations & methodology in statistics and econometrics, combined w
 
 ???
 
-Need a better tagline!!!
+Our department is quite diverse where we have people working on theory & methods, but also people develope computational tools and translational research. 
+
+You can find out more details about each staff including their contact details at these links. 
+
+You can follow some department activites by following our twitter accounts.
