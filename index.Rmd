@@ -757,6 +757,10 @@ Theoretical foundations & methodology in statistics and econometrics, combined w
 
 <i class="fab fa-twitter"></i>  [@numbats_rise_up](https://twitter.com/numbats_rise_up)
 
+.absolute.right-1.bottom-1[
+<i class="fas fa-caret-right"></i> Slides at http://emitanaka.org/slides-ADSN
+]
+
 ???
 
 Our department is quite diverse where we have people working on theory & methods, but also people develope computational tools and translational research. 
