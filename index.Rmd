@@ -276,7 +276,7 @@ ggplot(keywords, aes(label = words, size = n,
 
 ???
 
-This is a word cloud of the interests of our department staffs. We can see that our staffs have a large interest in econometrics, time series, forecasting, Bayesian methods, statistical computing. There are some unusal interest areas to business statistics, like plant breeding and quantiative genetics, but underlying statistics that everyone of our staffs use can be applicable broadly to many quantitative areas.
+This is a word cloud of the interests of our department staffs. We can see that our staffs have a large interest in econometrics, time series, forecasting, actuarial science, Bayesian methods, statistical computing. There are some unusual interest areas to business statistics, like quantitative genetics, but the underlying statistics that everyone of our staffs use can be broadly applicable to many quantitative areas.
 
 
 ---
@@ -416,7 +416,11 @@ Micro-economics
 
 On the top are some specific projects that our department staffs have worked on. On the bottom are some areas in econometrics.
 
-Note: hover over the projects/areas to see who are involved.
+* a number of people have been looking at exploring and forecasting the number of cases in COVID-19
+* Rob and George have looked at forecasting tourism numbers 
+* Heather, Farshid and Ben have looked at forecasting employment under different scenarios
+* Bonsoo have been using data to understand savings habit and looking at a number of retirement solutions
+* Gael, Rob, David, Zhuo and Luis work on state-of-the-art Bayesian computational methods to produce accurate, fit-for-purpose predictions using 
 
 
 
@@ -451,6 +455,8 @@ From a Trillion Observations
 ???
 
 Some of our staffs are involved in big data and machine learning. Here we have a spotlight on Klaus who is a founding member of the SoDa labs. Soda labs is a joint venture between some staffs in our deparment and department of economics at Monash and they get social science insights from alternative data, like satelite imagery, text, internet activity and so on.
+
+In this study, they've inferred sleeping pattern from millions of data points on household internet usage. 
 
 ---
 
@@ -521,6 +527,8 @@ by Callum Shaw, Xueyan Zhao and Dianne Cook
 ???
 
 A number of staffs study the effects of policy. Here we have a spotlight on Xueyan who works on a large number of health, government and survey data to study policy and health economics. 
+
+For example, using millions of data, she, along with her collaborators and students, tries to understand how much its costing to the individual for waiting for hip replacement in the public system. 
 
 ---
 
@@ -594,8 +602,18 @@ name: analytics
 
 ???
 
-A number of our staffs also work in areas outside of economics. 
+A number of our staffs also work in areas outside of economics. Again, the statistics we use span a number of quantitative areas. 
 
+* Di and Xueyan along with their students have looked at bush fire 
+* Di's had a look at the Australian Cancer Atlas and physics phenomena 
+* Patricia used to work at the Australian Institute of Marines and look at environment and ecology
+* Patricia, Di and myself have worked with agricultural data 
+* Lauren is interested in intricacies of collecting human data, such as privacy and ethics
+* Bioinformatics
+* Rob, Di and their former student Jeremy have looked at Election and Census data
+* A number of people work in the area of actuarial science
+* Rob and Puwasala have worked out water quality with joint work with folks at QUT
+* George and rob have forecasted energy usage
 
 ---
 
@@ -635,7 +653,9 @@ Non-Uniform Monash Business Analytics Team (**NUMBAT**)
 
 ???
 
-Besides the foundational and theoretical work, many members of the business analytics group, called the non-uniform monash business analytics team, or simply NUMBAT, translate methodology into useful tools.
+Besides the foundational theory and methodology, many members of the business analytics group, called the Non-uniform Monash Business Analytics Team, or simply NUMBAT, translate methodology into useful tools.
+
+These tools are mostly R-packages but our new Professor of Analytics Engagement, Dan Simpson, is a core developer for Stan and Lauren Kennedy is also involved with Stan.
 
 ---
 
@@ -669,7 +689,7 @@ name: tools4humans
 
 ???
 
-Some of the tool development focus on the human user aspect and make it easier to guide novice in their thinking by code.
+These tools are designed for the human user and make it easier to guide novice in their thinking when writing code.
 
 ---
 
@@ -719,7 +739,10 @@ ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample, nrow = 1
 
 ???
 
-We also have a number of research into data visualisation and here are some tools developed in this area with our department staff involvement. 
+We also have a number of people who research in data visualisation and here are some tools developed in this area with our department staff involvement. 
+
+* nullabor and tourr were developed when Hadley Wickham was Di's PhD student but now maintained by Di
+* spinifex, ferrn and sugarbag were developed by Di's students
 
 ---
 
@@ -770,3 +793,5 @@ Our department is quite diverse where we have people working on theory & methods
 You can find out more details about each staff including their contact details at these links. 
 
 You can follow some department activites by following our twitter accounts.
+
+You can find the slide link here and the code to produce this slide written in R.
