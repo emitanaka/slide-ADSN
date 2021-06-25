@@ -68,6 +68,7 @@
     background-color: white;
     color: #006DAE;
     border: 7px solid white;
+    z-index:999;
 }
 
 .img-bottom {
@@ -75,6 +76,7 @@
   bottom: 5px;
   left: 40px;
   visibility: hidden;
+  z-index: 999!important;
 }
 
 
@@ -486,6 +488,10 @@ figcaption {
   right: 30px;
   top: 80px;
   height: 250px;
+}
+
+.showcase-container {
+  z-index: 1!important;
 }
 
 .showcase-container:hover .showcase{

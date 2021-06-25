@@ -698,7 +698,7 @@ ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample, nrow = 1
 
 <br>
 
-.fr.center.w-30.bg-white.h-35.ba.showcase-container.animate__fadeIn.animate__animated.animate__delay-2s[
+.fr.center.w-30.bg-white.h-35.ba.showcase-container.animate__fadeIn.animate__animated[
 ## Spatial visualisation
 
 
@@ -706,7 +706,7 @@ ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample, nrow = 1
 
 <img src="images/tasmania_animation.gif" class="showcase">
 ]
-.center.w-50.bg-white.h-35.ba.ml4.showcase-container.animate__fadeIn.animate__animated.animate__delay-1s[
+.center.w-50.bg-white.h-35.ba.ml4.showcase-container[
 
 ## High-dimensional data visualisation
 
