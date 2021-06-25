@@ -678,7 +678,7 @@ class: bg-newspaper
 
 # .black[Spotlight 🔦 Data visualisation]
 
-.center.w-30.bg-white.h-35.ba.showcase-container[
+.center.w-30.bg-white.h-35.ba.showcase-container.animate__fadeIn.animate__animated[
 ## Visual inference
 
 `r print_logo("nullabor.png", who = c("dianne", "wickham", "chowdhury", "hofmann"), monash = "mxxx")`
@@ -698,7 +698,7 @@ ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample, nrow = 1
 
 <br>
 
-.fr.center.w-30.bg-white.h-35.ba.showcase-container[
+.fr.center.w-30.bg-white.h-35.ba.showcase-container.animate__fadeIn.animate__animated.animate__delay-2s[
 ## Spatial visualisation
 
 
@@ -706,7 +706,7 @@ ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample, nrow = 1
 
 <img src="images/tasmania_animation.gif" class="showcase">
 ]
-.center.w-50.bg-white.h-35.ba.ml4.showcase-container[
+.center.w-50.bg-white.h-35.ba.ml4.showcase-container.animate__fadeIn.animate__animated.animate__delay-1s[
 
 ## High-dimensional data visualisation
 
